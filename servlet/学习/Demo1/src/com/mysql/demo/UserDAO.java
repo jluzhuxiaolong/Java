@@ -32,17 +32,19 @@ public class UserDAO {
     }
 
     public User getUser(String name) throws SQLException {
-        User user =null;
+        User user =new User();
 
         String sql = "select * from user where name = '"+name+"';";
         Statement stmt = getCreateStatement();
         ResultSet rs =stmt.executeQuery(sql);
-
-        while(rs.next()) {
-            user = new User();
+        rs.next();
+        System.out.println("row count :"+ rs.getRow());
+        if(rs.getRow()>0){
             user.setName(rs.getString("name"));
             user.setAge(rs.getInt("age"));
             user.setSex(rs.getString("sex"));
+        }else {
+            user = null;
         }
 
         return  user;

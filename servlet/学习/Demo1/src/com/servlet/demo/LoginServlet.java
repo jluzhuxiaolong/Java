@@ -1,5 +1,8 @@
 package com.servlet.demo;
 
+import com.model.User;
+import com.mysql.demo.UserDAO;
+
 import javax.annotation.Resource;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -9,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.PrintWriter;
+import java.sql.SQLException;
 
 /**
  * Created by Administrator on 2016/8/18.
@@ -72,7 +76,21 @@ public class LoginServlet extends HttpServlet {
         }
 
         String randomString = request.getSession().getAttribute("random").toString();
-        if(!randomString.equals(request.getParameter("identity"))){
+        UserDAO userDAO = new UserDAO();
+        User user = null;
+        try {
+            user = userDAO.getUser(name);
+            if(user!=null) {
+                System.out.println("user.name:" + user.getName());
+                System.out.println("user.age" + user.getAge());
+            }else{
+                System.out.println("user is null");
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+
+        if(!randomString.equals(request.getParameter("identity"))||user==null){
 
             doGet(request,response);
             return;

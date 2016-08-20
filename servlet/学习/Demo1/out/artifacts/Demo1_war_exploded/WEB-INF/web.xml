@@ -28,4 +28,20 @@
         <env-entry-type>java.lang.String</env-entry-type>
         <env-entry-value>admin</env-entry-value>
     </env-entry>
+    <filter>
+        <filter-name>PathFilter</filter-name>
+        <filter-class>com.filter.pathFilter</filter-class>
+        <init-param>
+            <param-name>name</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+        <init-param>
+            <param-name>password</param-name>
+            <param-value>admin</param-value>
+        </init-param>
+    </filter>
+    <filter-mapping>
+        <filter-name>PathFilter</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
 </web-app>
